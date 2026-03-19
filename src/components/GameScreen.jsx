@@ -38,25 +38,36 @@ const PRAISE = [
 ];
 function pickPraise() { return PRAISE[Math.floor(Math.random() * PRAISE.length)]; }
 
+function pickVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  console.log('Available voices:', voices.map(v => v.name + ' (' + v.lang + ')'));
+  // Windows female voices
+  return (
+    voices.find(v => v.name === 'Microsoft Zira - English (United States)') ||
+    voices.find(v => v.name === 'Microsoft Hazel - English (Great Britain)') ||
+    voices.find(v => v.name === 'Microsoft Susan - English (Great Britain)') ||
+    voices.find(v => v.name.includes('Zira')) ||
+    voices.find(v => v.name.includes('Hazel')) ||
+    voices.find(v => v.name.includes('Susan')) ||
+    voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female')) ||
+    voices.find(v => v.lang === 'en-GB') ||
+    voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female')) ||
+    voices.find(v => v.lang.startsWith('en')) ||
+    null
+  );
+}
+
 function speakWord(word) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
 
   function doSpeak() {
-    const voices = window.speechSynthesis.getVoices();
-    // Prefer female British voice, then any female, then any British
-    const voice =
-      voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female')) ||
-      voices.find(v => v.lang === 'en-GB' && (v.name.includes('Serena') || v.name.includes('Kate') || v.name.includes('Martha'))) ||
-      voices.find(v => v.lang === 'en-GB') ||
-      voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female')) ||
-      voices.find(v => v.lang.startsWith('en')) ||
-      null;
-
+    const voice = pickVoice();
+    console.log('Using voice:', voice ? voice.name : 'default');
     function makeU(text) {
       const u = new SpeechSynthesisUtterance(text);
-      u.rate = 0.75;
-      u.pitch = 1.3;
+      u.rate = 0.7;
+      u.pitch = 1.4;
       u.volume = 1.0;
       u.lang = 'en-GB';
       if (voice) u.voice = voice;
@@ -67,7 +78,6 @@ function speakWord(word) {
     window.speechSynthesis.speak(makeU(word));
   }
 
-  // Voices may not be loaded yet
   if (window.speechSynthesis.getVoices().length > 0) {
     doSpeak();
   } else {
@@ -97,10 +107,8 @@ function Question({ q, onAnswer }) {
   const [result, setResult] = useState(null); // null | 'correct' | 'wrong'
   const [praise, setPraise] = useState('');
   const inputRef = useRef();
-  const doneRef = useRef(false);
 
   useEffect(() => {
-    doneRef.current = false;
     setTyped('');
     setChosen(null);
     setResult(null);
@@ -116,14 +124,13 @@ function Question({ q, onAnswer }) {
   }, [q]);
 
   function submit(answer) {
-    if (doneRef.current || result) return;
+    if (result) return;
     const correct = answer.trim().toLowerCase() === (q.word || q.answer).toLowerCase();
-    doneRef.current = true;
     setResult(correct ? 'correct' : 'wrong');
     setChosen(answer);
     if (correct) setPraise(pickPraise());
-    if (q.type !== QUESTION_TYPES.FILL_BLANK) speakWord(q.word || q.answer);
-    setTimeout(() => onAnswer(correct), 2000);
+    speakWord(q.word || q.answer);
+    onAnswer(correct);
   }
 
   function handleKeyDown(e) {
