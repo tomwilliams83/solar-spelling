@@ -119,30 +119,38 @@ export default function SolarMap({ playerName, avatar, completedLevels, unlocked
         }}
         className="hide-scrollbar"
       >
-        {/* Sun — to scale (radius ~1363px at Jupiter=140px scale), shown partially */}
+        {/* Sun — shown partially off left edge to convey massive scale */}
         <div style={{
           flexShrink: 0,
           position: 'relative',
-          width: '220px',
-          height: '220px',
-          marginLeft: '-110px',
-          marginRight: '60px',
+          width: '160px',  /* visible portion only */
+          height: '500px',
+          marginLeft: '-340px', /* push most of it off screen */
+          marginRight: '80px',
         }}>
-          {/* Sun disc */}
-          <div style={{
-            width: '220px',
-            height: '220px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle at 40% 35%, #fffde0, #ffe44d 30%, #ffaa00 65%, #ff6600)',
-            boxShadow: '0 0 60px rgba(255,200,0,0.9), 0 0 120px rgba(255,150,0,0.5), 0 0 200px rgba(255,100,0,0.3)',
-            animation: 'pulse-glow 3s ease-in-out infinite',
-          }} />
-          {/* Corona glow */}
+          {/* Sun disc — 500px diameter, mostly off screen */}
           <div style={{
             position: 'absolute',
-            inset: '-30px',
+            left: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '500px',
+            height: '500px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, transparent 45%, rgba(255,180,0,0.15) 60%, transparent 75%)',
+            background: 'radial-gradient(circle at 70% 45%, #fffde0, #ffe44d 25%, #ffaa00 55%, #ff6600 80%)',
+            boxShadow: '0 0 80px rgba(255,200,0,0.9), 0 0 160px rgba(255,150,0,0.6), 0 0 300px rgba(255,100,0,0.3)',
+            animation: 'pulse-glow 3s ease-in-out infinite',
+          }} />
+          {/* Corona glow bleeding right */}
+          <div style={{
+            position: 'absolute',
+            left: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '500px',
+            height: '500px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle at 70% 50%, transparent 50%, rgba(255,180,0,0.12) 65%, transparent 80%)',
             pointerEvents: 'none',
           }} />
         </div>
@@ -151,7 +159,7 @@ export default function SolarMap({ playerName, avatar, completedLevels, unlocked
         <div style={{
           position: 'absolute',
           top: '50%',
-          left: '160px',
+          left: '200px',
           right: '40px',
           height: '2px',
           background: 'linear-gradient(to right, rgba(100,150,255,0.3), rgba(100,150,255,0.1))',

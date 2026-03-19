@@ -94,12 +94,11 @@ function ListenSpell({ question, onAnswer }) {
   }, [question]);
 
   function handleSubmit() {
-    if (!typed.trim()) return;
+    if (!typed.trim() || submitted) return;
     const isCorrect = typed.trim().toLowerCase() === question.word.toLowerCase();
+    if (isCorrect) setPraise(pickPraise());
     setCorrect(isCorrect);
     setSubmitted(true);
-    if (isCorrect) { speakWord(question.word); setPraise(pickPraise()); }
-    else speakWord(question.word);
     setTimeout(() => onAnswer(isCorrect), 1800);
   }
 
@@ -239,10 +238,9 @@ function ChooseSpelling({ question, onAnswer }) {
   function handleChoice(option) {
     if (selected) return;
     const isCorrect = option === question.word;
+    if (isCorrect) setPraise(pickPraise());
     setSelected(option);
     setCorrect(isCorrect);
-    if (isCorrect) { setPraise(pickPraise()); speakWord(question.word); }
-    else speakWord(question.word);
     setTimeout(() => onAnswer(isCorrect), 1800);
   }
 
@@ -367,12 +365,11 @@ function FillBlank({ question, onAnswer }) {
   }, [question]);
 
   function handleSubmit() {
-    if (!typed.trim()) return;
+    if (!typed.trim() || submitted) return;
     const isCorrect = typed.trim().toLowerCase() === question.answer.toLowerCase();
+    if (isCorrect) setPraise(pickPraise());
     setCorrect(isCorrect);
     setSubmitted(true);
-    if (isCorrect) { setPraise(pickPraise()); speakWord(question.answer); }
-    else speakWord(question.answer);
     setTimeout(() => onAnswer(isCorrect), 1800);
   }
 
