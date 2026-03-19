@@ -1,13 +1,11 @@
 // Year 3 UK spelling words organised by planet/dwarf planet level
-// Ordered by distance from the Sun (orbital order).
-// Difficulty increases with planet size / distance.
-// No words are repeated across levels.
-// All spellings follow British English conventions.
-//
-// ORDER: Mercury, Venus, Earth, Mars, Ceres*, Jupiter, Saturn, Uranus, Neptune,
-//        Pluto*, Haumea*, Makemake*, Eris*   (* = dwarf planet)
+// Ordered by distance from the Sun.
+// All levels start at 4-letter words minimum.
+// Sentences are unambiguous — only one word fits correctly.
+// No words repeated across levels. British English throughout.
 
 export const PLANETS = [
+
   // ─── 1. MERCURY ────────────────────────────────────────────────────────────
   {
     id: 'mercury',
@@ -26,19 +24,19 @@ export const PLANETS = [
       'Mercury is covered in craters from asteroid impacts billions of years ago.',
     ],
     words: [
-      { word: 'hot', distractors: ['hott', 'hote', 'lot'] },
-      { word: 'big', distractors: ['bige', 'bigg', 'pig'] },
-      { word: 'run', distractors: ['runn', 'ran', 'fun'] },
-      { word: 'sit', distractors: ['sett', 'set', 'bit'] },
-      { word: 'red', distractors: ['redd', 'rad', 'bed'] },
-      { word: 'map', distractors: ['mapp', 'mape', 'nap'] },
-      { word: 'sun', distractors: ['sunn', 'son', 'bun'] },
-      { word: 'top', distractors: ['topp', 'tope', 'pop'] },
+      { word: 'dark', distractors: ['darc', 'darck', 'daark'] },
+      { word: 'rock', distractors: ['rokk', 'roke', 'roak'] },
+      { word: 'dust', distractors: ['duste', 'dast', 'dost'] },
+      { word: 'moon', distractors: ['moan', 'moone', 'muun'] },
+      { word: 'star', distractors: ['starr', 'stare', 'sstar'] },
+      { word: 'spin', distractors: ['spinn', 'spen', 'spyn'] },
+      { word: 'heat', distractors: ['heet', 'hete', 'haet'] },
+      { word: 'cold', distractors: ['coald', 'colde', 'chold'] },
     ],
     sentences: [
-      { sentence: 'The ____ shines very brightly in the sky.', answer: 'sun' },
-      { sentence: 'Mercury is a very ____ planet near the sun.', answer: 'hot' },
-      { sentence: 'The astronaut used a ____ to find her way.', answer: 'map' },
+      { sentence: 'The night sky is very ____ because there are no street lights in space.', answer: 'dark' },
+      { sentence: 'Mercury\'s surface is made of ____ and covered in craters.', answer: 'rock' },
+      { sentence: 'The astronaut looked up and saw a bright ____ twinkling.', answer: 'star' },
     ],
   },
 
@@ -60,19 +58,19 @@ export const PLANETS = [
       'Venus is sometimes called Earth\'s "twin" because they are almost the same size.',
     ],
     words: [
-      { word: 'glow', distractors: ['gloe', 'glowe', 'flow'] },
-      { word: 'spin', distractors: ['spinn', 'spen', 'thin'] },
-      { word: 'rock', distractors: ['rokk', 'roke', 'lock'] },
-      { word: 'dust', distractors: ['duste', 'dast', 'gust'] },
-      { word: 'ship', distractors: ['shipp', 'chip', 'shep'] },
-      { word: 'flag', distractors: ['flage', 'flog', 'slag'] },
-      { word: 'jump', distractors: ['jurnp', 'jamp', 'dump'] },
-      { word: 'cold', distractors: ['coald', 'colde', 'bold'] },
+      { word: 'glow', distractors: ['gloe', 'glowe', 'gloo'] },
+      { word: 'burn', distractors: ['burnn', 'bern', 'buren'] },
+      { word: 'acid', distractors: ['asid', 'acide', 'aksid'] },
+      { word: 'twin', distractors: ['twinn', 'twyn', 'twien'] },
+      { word: 'cloud', distractors: ['cloud', 'clowde', 'cloudd'] },
+      { word: 'thick', distractors: ['thik', 'thikk', 'thyck'] },
+      { word: 'storm', distractors: ['stoarm', 'storme', 'sturm'] },
+      { word: 'globe', distractors: ['gloab', 'globbe', 'gloob'] },
     ],
     sentences: [
-      { sentence: 'The rocket began to ____ as it entered the atmosphere.', answer: 'spin' },
-      { sentence: 'The surface of Venus is covered in hot ____.', answer: 'rock' },
-      { sentence: 'Deep in space it gets very ____ and dark.', answer: 'cold' },
+      { sentence: 'Venus is covered in ____ clouds that trap the heat inside.', answer: 'thick' },
+      { sentence: 'The dangerous ____ clouds on Venus would dissolve a spacecraft.', answer: 'acid' },
+      { sentence: 'Venus and Earth are called ____ planets because they are nearly the same size.', answer: 'twin' },
     ],
   },
 
@@ -94,19 +92,19 @@ export const PLANETS = [
       'Earth is approximately 4.5 billion years old — that\'s 4,500,000,000 years!',
     ],
     words: [
-      { word: 'night', distractors: ['nite', 'nigt', 'nigh'] },
-      { word: 'light', distractors: ['lite', 'ligh', 'litte'] },
-      { word: 'small', distractors: ['smal', 'smale', 'smoll'] },
+      { word: 'blue', distractors: ['blew', 'bloo', 'bluw'] },
+      { word: 'life', distractors: ['lyfe', 'liffe', 'lieffe'] },
+      { word: 'tide', distractors: ['tyde', 'tide', 'tiede'] },
+      { word: 'rain', distractors: ['rane', 'raen', 'rein'] },
+      { word: 'ocean', distractors: ['oshen', 'oshun', 'oceane'] },
+      { word: 'night', distractors: ['nite', 'nigt', 'niight'] },
+      { word: 'light', distractors: ['lite', 'ligh', 'ligth'] },
       { word: 'space', distractors: ['spase', 'spaice', 'spaise'] },
-      { word: 'crash', distractors: ['crach', 'crasch', 'crish'] },
-      { word: 'flame', distractors: ['flaim', 'flam', 'flane'] },
-      { word: 'storm', distractors: ['starm', 'stoarm', 'storem'] },
-      { word: 'bright', distractors: ['brite', 'brigt', 'brigh'] },
     ],
     sentences: [
-      { sentence: 'From ____ you can see the stars clearly.', answer: 'space' },
-      { sentence: 'The ____ sky was full of twinkling stars.', answer: 'night' },
-      { sentence: 'The rocket left a trail of ____ behind it.', answer: 'flame' },
+      { sentence: 'Earth looks ____ from space because most of its surface is water.', answer: 'blue' },
+      { sentence: 'Earth is the only planet in our solar system known to have ____.', answer: 'life' },
+      { sentence: 'The Moon pulls on the sea and causes the ____ to rise and fall.', answer: 'tide' },
     ],
   },
 
@@ -128,23 +126,23 @@ export const PLANETS = [
       'A day on Mars is 24 hours and 37 minutes — almost the same as an Earth day!',
     ],
     words: [
-      { word: 'cloud', distractors: ['clowde', 'clawd', 'cloude'] },
-      { word: 'thick', distractors: ['thik', 'thikk', 'thic'] },
-      { word: 'swirl', distractors: ['swerl', 'swirle', 'sworl'] },
+      { word: 'rust', distractors: ['roost', 'russt', 'rrust'] },
+      { word: 'crater', distractors: ['craiter', 'cratter', 'cratur'] },
+      { word: 'rover', distractors: ['rovar', 'rovver', 'rovur'] },
       { word: 'orbit', distractors: ['orbite', 'orbitt', 'orbot'] },
-      { word: 'planet', distractors: ['planit', 'planett', 'planat'] },
-      { word: 'yellow', distractors: ['yelo', 'yelloe', 'yelow'] },
-      { word: 'circle', distractors: ['sircle', 'circal', 'cirkle'] },
       { word: 'frozen', distractors: ['frozzen', 'frozan', 'frowzen'] },
+      { word: 'planet', distractors: ['planit', 'planett', 'planat'] },
+      { word: 'desert', distractors: ['dessert', 'dezert', 'desart'] },
+      { word: 'volcano', distractors: ['volcana', 'volcanoe', 'volcnao'] },
     ],
     sentences: [
-      { sentence: 'A ____ of dust swirled across the surface of Mars.', answer: 'cloud' },
-      { sentence: 'Mars takes longer to ____ the sun than Earth does.', answer: 'orbit' },
-      { sentence: 'The ice caps on Mars are ____ all year round.', answer: 'frozen' },
+      { sentence: 'Mars looks red because its soil is full of iron ____.', answer: 'rust' },
+      { sentence: 'Scientists sent a ____ to drive across the surface of Mars.', answer: 'rover' },
+      { sentence: 'Olympus Mons is a giant ____ on Mars that is three times taller than Everest.', answer: 'volcano' },
     ],
   },
 
-  // ─── 5. CERES (dwarf — asteroid belt) ──────────────────────────────────────
+  // ─── 5. CERES ──────────────────────────────────────────────────────────────
   {
     id: 'ceres',
     name: 'Ceres',
@@ -163,18 +161,18 @@ export const PLANETS = [
     ],
     words: [
       { word: 'hidden', distractors: ['hiden', 'hiddan', 'hiddun'] },
-      { word: 'crater', distractors: ['craiter', 'cratter', 'craytor'] },
-      { word: 'ancient', distractors: ['anciant', 'anchent', 'ancyent'] },
       { word: 'salty', distractors: ['saltey', 'salti', 'saltty'] },
       { word: 'rocky', distractors: ['rocki', 'rockky', 'rokky'] },
+      { word: 'ancient', distractors: ['anciant', 'anchent', 'ancyent'] },
       { word: 'surface', distractors: ['serface', 'surfase', 'surfece'] },
-      { word: 'desert', distractors: ['dessert', 'dezert', 'desart'] },
       { word: 'explore', distractors: ['explor', 'expslore', 'explorre'] },
+      { word: 'dwarf', distractors: ['dworf', 'dwarff', 'dwaff'] },
+      { word: 'bright', distractors: ['brite', 'brigt', 'briight'] },
     ],
     sentences: [
-      { sentence: 'Ceres is ____ among thousands of asteroids.', answer: 'hidden' },
-      { sentence: 'The ____ surface of Ceres is covered in craters.', answer: 'rocky' },
-      { sentence: 'Scientists want to ____ the asteroid belt in more detail.', answer: 'explore' },
+      { sentence: 'Ceres is a ____ planet, which means it is smaller than a full planet.', answer: 'dwarf' },
+      { sentence: 'Scientists believe there is a ____ ocean buried beneath the icy crust of Ceres.', answer: 'salty' },
+      { sentence: 'The ____ of Ceres is covered in craters and white spots.', answer: 'surface' },
     ],
   },
 
@@ -198,17 +196,17 @@ export const PLANETS = [
     words: [
       { word: 'enormous', distractors: ['enarmous', 'enormus', 'enormuos'] },
       { word: 'gravity', distractors: ['gravvity', 'gravitty', 'graviti'] },
-      { word: 'powerful', distractors: ['powerfull', 'powarful', 'powerfel'] },
-      { word: 'lightning', distractors: ['lightnning', 'lightening', 'ligtning'] },
-      { word: 'discover', distractors: ['discuver', 'discovver', 'discorver'] },
-      { word: 'magnetic', distractors: ['magnettik', 'magnatic', 'magnetick'] },
       { word: 'hydrogen', distractors: ['hidrogen', 'hydrojen', 'hyddrogen'] },
+      { word: 'magnetic', distractors: ['magnettik', 'magnatic', 'magnetick'] },
+      { word: 'lightning', distractors: ['lightnning', 'lightening', 'ligtning'] },
+      { word: 'powerful', distractors: ['powerfull', 'powarful', 'powerfel'] },
+      { word: 'swirling', distractors: ['swirelling', 'swurling', 'swirlinng'] },
       { word: 'protect', distractors: ['protekt', 'protec', 'pratect'] },
     ],
     sentences: [
-      { sentence: 'Jupiter\'s ____ pull is much stronger than Earth\'s.', answer: 'gravity' },
-      { sentence: 'The ____ storm on Jupiter is bigger than Earth itself.', answer: 'enormous' },
-      { sentence: 'Jupiter helps to ____ Earth by pulling in dangerous asteroids.', answer: 'protect' },
+      { sentence: 'Jupiter\'s Great Red Spot is a ____ storm that has lasted over 350 years.', answer: 'swirling' },
+      { sentence: 'Jupiter\'s strong ____ pull stops many asteroids from reaching Earth.', answer: 'gravity' },
+      { sentence: 'Jupiter helps ____ Earth by pulling in dangerous space rocks.', answer: 'protect' },
     ],
   },
 
@@ -226,23 +224,23 @@ export const PLANETS = [
       'Saturn\'s rings are made of billions of chunks of ice and rock, ranging from tiny grains to house-sized boulders.',
       'Saturn is so light that if you could find an ocean big enough, it would float!',
       'A day on Saturn is only 10.7 hours, but a year lasts 29 Earth years.',
-      'Saturn has 146 known moons — the most of any planet. Its largest moon, Titan, has a thick atmosphere.',
+      'Saturn has 146 known moons. Its largest moon, Titan, has a thick atmosphere.',
       'Saturn\'s rings stretch 282,000 km from the planet, but are only about 10 metres thick in places.',
     ],
     words: [
-      { word: 'atmosphere', distractors: ['atmosfere', 'atmosphear', 'atmusphere'] },
-      { word: 'temperature', distractors: ['temperture', 'temprature', 'tempurature'] },
-      { word: 'beautiful', distractors: ['beutiful', 'beautifull', 'beauteful'] },
-      { word: 'pressure', distractors: ['pressur', 'presure', 'pressuer'] },
-      { word: 'thousand', distractors: ['thouzand', 'thousend', 'thousond'] },
+      { word: 'ringed', distractors: ['ringd', 'ringged', 'rinjed'] },
       { word: 'particle', distractors: ['partikle', 'partical', 'particel'] },
       { word: 'distance', distractors: ['distanse', 'distunce', 'distonce'] },
       { word: 'floating', distractors: ['floeting', 'flotting', 'flooting'] },
+      { word: 'pressure', distractors: ['pressur', 'presure', 'pressuer'] },
+      { word: 'thousand', distractors: ['thouzand', 'thousend', 'thousond'] },
+      { word: 'beautiful', distractors: ['beutiful', 'beautifull', 'beauteful'] },
+      { word: 'atmosphere', distractors: ['atmosfere', 'atmosphear', 'atmusphere'] },
     ],
     sentences: [
-      { sentence: 'Saturn\'s rings are made of millions of ice ____ s.', answer: 'particle' },
-      { sentence: 'Saturn is so far away that the ____ from Earth is enormous.', answer: 'distance' },
-      { sentence: 'The ____ of Saturn looks truly ____ from a telescope.', answer: 'beautiful' },
+      { sentence: 'Saturn is the only planet in our solar system that is ____ enough to float on water.', answer: 'floating' },
+      { sentence: 'Saturn\'s rings are made of billions of tiny ice ____ s.', answer: 'particle' },
+      { sentence: 'Titan is special because it is the only moon with a thick ____.', answer: 'atmosphere' },
     ],
   },
 
@@ -261,22 +259,22 @@ export const PLANETS = [
       'Uranus has 13 known rings, but they are very dark and hard to see.',
       'Uranus is an "ice giant" made mostly of icy materials like water, methane, and ammonia.',
       'A season on Uranus lasts 21 Earth years because of how tilted it is.',
-      'Uranus was the first planet discovered using a telescope, found by William Herschel in 1781.',
+      'Uranus was the first planet discovered using a telescope, by William Herschel in 1781.',
     ],
     words: [
-      { word: 'methane', distractors: ['methayne', 'methain', 'methaine'] },
       { word: 'tilted', distractors: ['tiltted', 'tiltid', 'tiltead'] },
-      { word: 'rotation', distractors: ['rotashun', 'rotacion', 'rotatoin'] },
+      { word: 'methane', distractors: ['methayne', 'methain', 'methaine'] },
+      { word: 'freezing', distractors: ['freesing', 'friezing', 'frezing'] },
       { word: 'telescope', distractors: ['telescoap', 'telescape', 'telescoop'] },
       { word: 'scientist', distractors: ['sientist', 'scientest', 'sceintist'] },
       { word: 'unusual', distractors: ['unuzual', 'unusuall', 'unusuel'] },
-      { word: 'freezing', distractors: ['freesing', 'frieezing', 'frezing'] },
+      { word: 'rotation', distractors: ['rotashun', 'rotacion', 'rotatoin'] },
       { word: 'invisible', distractors: ['invissible', 'invisable', 'invizible'] },
     ],
     sentences: [
-      { sentence: 'Uranus looks blue-green because of ____ gas in its atmosphere.', answer: 'methane' },
-      { sentence: 'A ____ is used to see distant planets in the night sky.', answer: 'telescope' },
-      { sentence: 'The planet\'s ____ axis makes its seasons very strange.', answer: 'tilted' },
+      { sentence: 'Uranus is ____ on its side, so it rolls around the sun like a ball.', answer: 'tilted' },
+      { sentence: 'The gas ____ makes Uranus look blue-green in colour.', answer: 'methane' },
+      { sentence: 'William Herschel used a ____ to discover Uranus in 1781.', answer: 'telescope' },
     ],
   },
 
@@ -298,23 +296,23 @@ export const PLANETS = [
       'Neptune\'s largest moon, Triton, orbits backwards and is slowly spiralling inwards.',
     ],
     words: [
-      { word: 'adventure', distractors: ['adventcher', 'adventuure', 'adventuer'] },
+      { word: 'violent', distractors: ['violant', 'viollent', 'violint'] },
       { word: 'calculate', distractors: ['calcalate', 'calculait', 'calculayt'] },
+      { word: 'adventure', distractors: ['adventcher', 'adventuure', 'adventuer'] },
       { word: 'direction', distractors: ['dirrection', 'direktion', 'direstion'] },
       { word: 'navigate', distractors: ['navigayt', 'naviggate', 'navigait'] },
       { word: 'probably', distractors: ['proberbly', 'probbably', 'probabley'] },
-      { word: 'violent', distractors: ['violant', 'viollent', 'violint'] },
       { word: 'continuous', distractors: ['continuus', 'contineous', 'continnuous'] },
-      { word: 'enormous', distractors: ['enarmous', 'enormus', 'enormuos'] },
+      { word: 'discovery', distractors: ['discuvery', 'discovvery', 'discoverie'] },
     ],
     sentences: [
-      { sentence: 'The winds on Neptune are extremely ____.', answer: 'violent' },
-      { sentence: 'Scientists had to ____ where Neptune was before they could see it.', answer: 'calculate' },
-      { sentence: 'A journey to Neptune would be an incredible ____.', answer: 'adventure' },
+      { sentence: 'Neptune\'s winds are so ____ that they are the strongest in the solar system.', answer: 'violent' },
+      { sentence: 'Scientists used maths to ____ where Neptune would be before they saw it.', answer: 'calculate' },
+      { sentence: 'Flying to Neptune would be an incredible space ____.', answer: 'adventure' },
     ],
   },
 
-  // ─── 10. PLUTO (dwarf) ─────────────────────────────────────────────────────
+  // ─── 10. PLUTO ─────────────────────────────────────────────────────────────
   {
     id: 'pluto',
     name: 'Pluto',
@@ -333,22 +331,22 @@ export const PLANETS = [
     ],
     words: [
       { word: 'nitrogen', distractors: ['nitragen', 'nitregen', 'nitrogan'] },
-      { word: 'dwarf', distractors: ['dworf', 'dwarff', 'dwaff'] },
-      { word: 'farthest', distractors: ['furtherst', 'furthest', 'farthist'] },
       { word: 'astronomer', distractors: ['astonomer', 'astromer', 'astronomar'] },
       { word: 'classified', distractors: ['classifyed', 'clasified', 'classiffied'] },
-      { word: 'icy', distractors: ['iccy', 'icey', 'icsy'] },
-      { word: 'discovered', distractors: ['discuvered', 'discovvered', 'discorved'] },
       { word: 'reclassify', distractors: ['reclassafi', 'reclassifie', 'reclasify'] },
+      { word: 'farthest', distractors: ['furtherst', 'furthest', 'farthist'] },
+      { word: 'discovered', distractors: ['discuvered', 'discovvered', 'discorved'] },
+      { word: 'heart', distractors: ['haart', 'heartt', 'haert'] },
+      { word: 'icy', distractors: ['iccy', 'icey', 'icsy'] },
     ],
     sentences: [
-      { sentence: 'Pluto is covered in ____ plains of frozen gas.', answer: 'icy' },
-      { sentence: 'An ____ is a scientist who studies stars and planets.', answer: 'astronomer' },
-      { sentence: 'Pluto was ____ as a dwarf planet in 2006.', answer: 'classified' },
+      { sentence: 'Pluto has a ____ shaped plain made of frozen nitrogen on its surface.', answer: 'heart' },
+      { sentence: 'An ____ is a scientist who studies planets and stars.', answer: 'astronomer' },
+      { sentence: 'Pluto was ____ as a dwarf planet in 2006 because it is too small to be a full planet.', answer: 'classified' },
     ],
   },
 
-  // ─── 11. HAUMEA (dwarf) ────────────────────────────────────────────────────
+  // ─── 11. HAUMEA ────────────────────────────────────────────────────────────
   {
     id: 'haumea',
     name: 'Haumea',
@@ -366,23 +364,23 @@ export const PLANETS = [
       'Haumea is made mostly of rock covered in a thin layer of ice.',
     ],
     words: [
-      { word: 'elliptical', distractors: ['eliptical', 'elliptikle', 'eliptikle'] },
-      { word: 'mythology', distractors: ['mitholagy', 'mythollogy', 'mytholegy'] },
-      { word: 'elongated', distractors: ['elonggated', 'elongatid', 'elungated'] },
       { word: 'rapidly', distractors: ['rappidly', 'rapidley', 'reppidly'] },
       { word: 'goddess', distractors: ['goddes', 'godess', 'goddiss'] },
-      { word: 'discovery', distractors: ['discuvery', 'discovvery', 'discoverie'] },
-      { word: 'composition', distractors: ['compasition', 'composision', 'composishin'] },
+      { word: 'elongated', distractors: ['elonggated', 'elongatid', 'elungated'] },
+      { word: 'mythology', distractors: ['mitholagy', 'mythollogy', 'mytholegy'] },
+      { word: 'elliptical', distractors: ['eliptical', 'elliptikle', 'eliptikle'] },
       { word: 'rotation', distractors: ['rotashun', 'rotacion', 'rotatoin'] },
+      { word: 'composition', distractors: ['compasition', 'composision', 'composishin'] },
+      { word: 'hawaiian', distractors: ['hawiian', 'hawaien', 'hawayan'] },
     ],
     sentences: [
-      { sentence: 'Haumea spins so ____ that it has become egg-shaped.', answer: 'rapidly' },
-      { sentence: 'The planet is named after a Hawaiian ____.', answer: 'goddess' },
-      { sentence: 'Scientists made the ____ of Haumea\'s ring in 2017.', answer: 'discovery' },
+      { sentence: 'Haumea spins so ____ that it has been squashed into an egg shape.', answer: 'rapidly' },
+      { sentence: 'Haumea is named after a ____ goddess from the islands of Hawaii.', answer: 'hawaiian' },
+      { sentence: 'Because Haumea spins so fast it has an ____ shape, like a rugby ball.', answer: 'elongated' },
     ],
   },
 
-  // ─── 12. MAKEMAKE (dwarf) ──────────────────────────────────────────────────
+  // ─── 12. MAKEMAKE ──────────────────────────────────────────────────────────
   {
     id: 'makemake',
     name: 'Makemake',
@@ -402,21 +400,21 @@ export const PLANETS = [
     words: [
       { word: 'reddish', distractors: ['reddesh', 'redish', 'reddich'] },
       { word: 'brightest', distractors: ['brigtest', 'brightist', 'britest'] },
-      { word: 'ethane', distractors: ['ethayne', 'ethan', 'ethaen'] },
       { word: 'creation', distractors: ['creashun', 'creattion', 'creacion'] },
       { word: 'nickname', distractors: ['niccname', 'nicknam', 'nicname'] },
       { word: 'civilisation', distractors: ['civlisation', 'civilsation', 'civilizasion'] },
-      { word: 'reclassified', distractors: ['reclassafied', 'reclasified', 'reclassifyed'] },
-      { word: 'telescope', distractors: ['telescoap', 'telescape', 'telescoop'] },
+      { word: 'ethane', distractors: ['ethayne', 'ethan', 'ethaen'] },
+      { word: 'kuiper', distractors: ['kyper', 'kuipper', 'kuyper'] },
+      { word: 'february', distractors: ['febuary', 'februray', 'Febrary'] },
     ],
     sentences: [
-      { sentence: 'The frozen ____ on Makemake gives it its reddish colour.', answer: 'ethane' },
-      { sentence: 'Makemake\'s moon was given the ____ MK2.', answer: 'nickname' },
-      { sentence: 'The Rapa Nui people have an ancient ____ story featuring Makemake.', answer: 'creation' },
+      { sentence: 'Makemake gets its ____ colour from frozen methane and ethane on its surface.', answer: 'reddish' },
+      { sentence: 'Makemake is named after the ____ god of the Rapa Nui people of Easter Island.', answer: 'creation' },
+      { sentence: 'Makemake is one of the ____ objects in the Kuiper Belt after Pluto.', answer: 'brightest' },
     ],
   },
 
-  // ─── 13. ERIS (dwarf) ──────────────────────────────────────────────────────
+  // ─── 13. ERIS ──────────────────────────────────────────────────────────────
   {
     id: 'eris',
     name: 'Eris',
@@ -444,9 +442,9 @@ export const PLANETS = [
       { word: 'temperature', distractors: ['temperture', 'temprature', 'tempurature'] },
     ],
     sentences: [
-      { sentence: 'The discovery of Eris caused great ____ in the scientific world.', answer: 'controversy' },
-      { sentence: 'Scientists built an ____ to study distant objects in space.', answer: 'observatory' },
-      { sentence: 'The ____ of a "planet" was changed because of Eris.', answer: 'definition' },
+      { sentence: 'The discovery of Eris caused great ____ because scientists argued about whether Pluto was still a planet.', answer: 'controversy' },
+      { sentence: 'Scientists used an ____ to spot Eris far out in the solar system.', answer: 'observatory' },
+      { sentence: 'The ____ of the word "planet" had to be changed after Eris was found.', answer: 'definition' },
     ],
   },
 ];

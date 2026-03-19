@@ -40,14 +40,37 @@ function buildQuestions(planet) {
   return shuffle(questions);
 }
 
-function speak(text, rate = 0.8) {
+function getGBVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  return voices.find(v => v.lang === 'en-GB') || voices.find(v => v.lang.startsWith('en')) || null;
+}
+
+function speak(text, rate = 0.65) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.rate = rate;
-  utterance.pitch = 1.1;
+  utterance.pitch = 1.0;
+  utterance.volume = 1.0;
   utterance.lang = 'en-GB';
+  const voice = getGBVoice();
+  if (voice) utterance.voice = voice;
   window.speechSynthesis.speak(utterance);
+}
+
+function speakWord(word) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const voice = getGBVoice();
+  function makeU(text, rate) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = rate; u.pitch = 1.0; u.volume = 1.0; u.lang = "en-GB";
+    if (voice) u.voice = voice;
+    return u;
+  }
+  window.speechSynthesis.speak(makeU(word, 0.5));
+  window.speechSynthesis.speak(makeU(" ", 0.1));
+  window.speechSynthesis.speak(makeU(word, 0.5));
 }
 
 // ─── Question components ──────────────────────────────────────────────────────
@@ -63,7 +86,7 @@ function ListenSpell({ question, onAnswer }) {
     setSubmitted(false);
     setCorrect(null);
     setTimeout(() => {
-      speak(question.word);
+      speakWord(question.word);
       inputRef.current?.focus();
     }, 300);
   }, [question]);
@@ -92,7 +115,7 @@ function ListenSpell({ question, onAnswer }) {
       </div>
 
       <button
-        onClick={() => speak(question.word)}
+        onClick={() => speakWord(question.word)}
         style={{
           width: '90px',
           height: '90px',
@@ -110,7 +133,7 @@ function ListenSpell({ question, onAnswer }) {
         onMouseDown={e => e.currentTarget.style.transform = 'scale(0.92)'}
         onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
         onTouchStart={e => e.currentTarget.style.transform = 'scale(0.92)'}
-        onTouchEnd={e => { e.currentTarget.style.transform = 'scale(1)'; speak(question.word); }}
+        onTouchEnd={e => { e.currentTarget.style.transform = 'scale(1)'; speakWord(question.word); }}
       >
         🔊
       </button>
@@ -224,7 +247,7 @@ function ChooseSpelling({ question, onAnswer }) {
       </div>
 
       <button
-        onClick={() => speak(question.word)}
+        onClick={() => speakWord(question.word)}
         style={{
           padding: '10px 24px',
           borderRadius: '40px',
