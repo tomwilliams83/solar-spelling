@@ -516,20 +516,22 @@ export default function GameScreen({ planet, playerName, avatar, onComplete, onB
   const [qIndex, setQIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
-  const [pending, setPending] = useState(null); // {isCorrect} waiting to advance
   const timerRef = useRef(null);
 
   const total = questions.length;
 
+  const answeredRef = useRef(false);
+
   function handleAnswer(isCorrect) {
-    if (pending !== null) return; // already answered this question
+    if (answeredRef.current) return;
+    answeredRef.current = true;
+
     const newScore = isCorrect ? score + 1 : score;
     if (isCorrect) setScore(newScore);
-    setPending({ isCorrect, newScore });
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      setPending(null);
+      answeredRef.current = false;
       if (qIndex + 1 >= total) {
         setFinished(true);
         const pct = (newScore / total) * 100;
@@ -538,7 +540,7 @@ export default function GameScreen({ planet, playerName, avatar, onComplete, onB
       } else {
         setQIndex(i => i + 1);
       }
-    }, 1800);
+    }, 2000);
   }
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
@@ -640,13 +642,13 @@ export default function GameScreen({ planet, playerName, avatar, onComplete, onB
         ) : (
           <>
             {currentQ.type === QUESTION_TYPES.LISTEN_SPELL && (
-              <ListenSpell key={qIndex} question={currentQ} onAnswer={handleAnswer} />
+              <ListenSpell key={`ls-${qIndex}`} question={currentQ} onAnswer={handleAnswer} />
             )}
             {currentQ.type === QUESTION_TYPES.CHOOSE_SPELLING && (
-              <ChooseSpelling key={qIndex} question={currentQ} onAnswer={handleAnswer} />
+              <ChooseSpelling key={`cs-${qIndex}`} question={currentQ} onAnswer={handleAnswer} />
             )}
             {currentQ.type === QUESTION_TYPES.FILL_BLANK && (
-              <FillBlank key={qIndex} question={currentQ} onAnswer={handleAnswer} />
+              <FillBlank key={`fb-${qIndex}`} question={currentQ} onAnswer={handleAnswer} />
             )}
           </>
         )}
