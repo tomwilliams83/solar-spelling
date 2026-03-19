@@ -452,7 +452,7 @@ export const PLANETS = [
 export const QUESTION_TYPES = {
   LISTEN_SPELL: 'listen_spell',
   CHOOSE_SPELLING: 'choose_spelling',
-  FILL_BLANK: 'fill_blank',
+  LOOK_COVER: 'look_cover',
 };
 
 export const AVATARS = [

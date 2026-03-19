@@ -28,7 +28,7 @@ function MedalBadge({ stars }) {
   );
 }
 
-export default function SolarMap({ playerName, avatar, completedLevels, unlockedIndex, onSelectPlanet, onEditProfile }) {
+export default function SolarMap({ playerName, avatar, completedLevels, unlockedIndex, onSelectPlanet, onEditProfile, onParentPortal }) {
   const scrollRef = useRef(null);
 
   // Auto-scroll to first uncompleted planet
@@ -73,24 +73,32 @@ export default function SolarMap({ playerName, avatar, completedLevels, unlocked
             {Object.keys(completedLevels).length} / {PLANETS.length} worlds explored
           </p>
         </div>
-        <button
-          onClick={onEditProfile}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '8px 14px',
-            borderRadius: '40px',
-            background: 'rgba(255,255,255,0.08)',
-            border: '1px solid rgba(255,255,255,0.15)',
-            color: 'white',
-            fontSize: '14px',
-            fontWeight: 700,
-          }}
-        >
-          <span style={{ fontSize: '20px' }}>{avatar.emoji}</span>
-          <span>{playerName}</span>
-        </button>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button
+            onClick={onParentPortal}
+            style={{
+              width: '36px', height: '36px', borderRadius: '50%',
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              color: 'rgba(255,255,255,0.5)', fontSize: '16px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}
+            title="Parent Settings"
+          >⚙️</button>
+          <button
+            onClick={onEditProfile}
+            style={{
+              display: 'flex', alignItems: 'center', gap: '8px',
+              padding: '8px 14px', borderRadius: '40px',
+              background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(255,255,255,0.15)',
+              color: 'white', fontSize: '14px', fontWeight: 700,
+            }}
+          >
+            <span style={{ fontSize: '20px' }}>{avatar.emoji}</span>
+            <span>{playerName}</span>
+          </button>
+        </div>
       </div>
 
       {/* Sun label */}
