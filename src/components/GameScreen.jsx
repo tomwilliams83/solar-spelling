@@ -99,7 +99,7 @@ function ListenSpell({ question, onAnswer }) {
     if (isCorrect) setPraise(pickPraise());
     setCorrect(isCorrect);
     setSubmitted(true);
-    setTimeout(() => onAnswer(isCorrect), 1800);
+    onAnswer(isCorrect);
   }
 
   return (
@@ -241,7 +241,7 @@ function ChooseSpelling({ question, onAnswer }) {
     if (isCorrect) setPraise(pickPraise());
     setSelected(option);
     setCorrect(isCorrect);
-    setTimeout(() => onAnswer(isCorrect), 1800);
+    onAnswer(isCorrect);
   }
 
   return (
@@ -370,7 +370,7 @@ function FillBlank({ question, onAnswer }) {
     if (isCorrect) setPraise(pickPraise());
     setCorrect(isCorrect);
     setSubmitted(true);
-    setTimeout(() => onAnswer(isCorrect), 1800);
+    onAnswer(isCorrect);
   }
 
   const parts = question.sentence.split('____');
@@ -516,21 +516,32 @@ export default function GameScreen({ planet, playerName, avatar, onComplete, onB
   const [qIndex, setQIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  const [pending, setPending] = useState(null); // {isCorrect} waiting to advance
+  const timerRef = useRef(null);
 
   const total = questions.length;
 
   function handleAnswer(isCorrect) {
-    if (isCorrect) setScore(s => s + 1);
-    if (qIndex + 1 >= total) {
-      setFinished(true);
-      const finalScore = isCorrect ? score + 1 : score;
-      const pct = (finalScore / total) * 100;
-      const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
-      setTimeout(() => onComplete(planet.id, finalScore, stars), 800);
-    } else {
-      setQIndex(i => i + 1);
-    }
+    if (pending !== null) return; // already answered this question
+    const newScore = isCorrect ? score + 1 : score;
+    if (isCorrect) setScore(newScore);
+    setPending({ isCorrect, newScore });
+
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setPending(null);
+      if (qIndex + 1 >= total) {
+        setFinished(true);
+        const pct = (newScore / total) * 100;
+        const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
+        setTimeout(() => onComplete(planet.id, newScore, stars), 800);
+      } else {
+        setQIndex(i => i + 1);
+      }
+    }, 1800);
   }
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const currentQ = questions[qIndex];
   const progress = qIndex / total;
