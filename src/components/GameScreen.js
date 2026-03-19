@@ -96,9 +96,9 @@ function ListenSpell({ question, onAnswer }) {
     const isCorrect = typed.trim().toLowerCase() === question.word.toLowerCase();
     setCorrect(isCorrect);
     setSubmitted(true);
-    if (isCorrect) speak('Brilliant!', 1.0);
-    else speak(`The correct spelling is: ${question.word}`, 0.8);
-    setTimeout(() => onAnswer(isCorrect), 1400);
+    if (isCorrect) speak(pickPraise(), 1.0);
+    else speak(`Never mind! The correct spelling is: ${question.word}`, 0.75);
+    setTimeout(() => onAnswer(isCorrect), 1600);
   }
 
   return (
@@ -220,7 +220,7 @@ function ChooseSpelling({ question, onAnswer }) {
   useEffect(() => {
     setSelected(null);
     setCorrect(null);
-    setTimeout(() => speak('Which is the correct spelling?', 0.9), 200);
+    setTimeout(() => speak('Which one is spelled correctly? Listen carefully!', 0.75), 200);
   }, [question]);
 
   function handleChoice(option) {
@@ -228,9 +228,9 @@ function ChooseSpelling({ question, onAnswer }) {
     const isCorrect = option === question.word;
     setSelected(option);
     setCorrect(isCorrect);
-    if (isCorrect) speak('Brilliant!', 1.0);
-    else speak(`The correct spelling is: ${question.word}`, 0.8);
-    setTimeout(() => onAnswer(isCorrect), 1400);
+    if (isCorrect) speak(pickPraise(), 1.0);
+    else speak(`Nearly! The correct spelling is: ${question.word}`, 0.75);
+    setTimeout(() => onAnswer(isCorrect), 1600);
   }
 
   return (
@@ -328,8 +328,8 @@ function FillBlank({ question, onAnswer }) {
     setCorrect(isCorrect);
     setSubmitted(true);
     const filled = question.sentence.replace('____', question.answer);
-    if (isCorrect) speak('Brilliant! ' + filled, 1.0);
-    else speak(`The missing word is: ${question.answer}`, 0.8);
+    if (isCorrect) speak(pickPraise() + '... ' + filled, 1.0);
+    else speak(`Good try! The missing word is: ${question.answer}`, 0.75);
     setTimeout(() => onAnswer(isCorrect), 1600);
   }
 

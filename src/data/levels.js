@@ -18,7 +18,7 @@ export const PLANETS = [
     description: 'The smallest planet and closest to the Sun',
     facts: [
       'Mercury is the smallest planet in our solar system — only slightly bigger than Earth\'s Moon.',
-      'A day on Mercury lasts 59 Earth days, but its year is only 88 days long!',
+      'A day on Mercury lasts 59 Earth days, but a full year is only 88 days long — so a day is longer than a year!',
       'Mercury has extreme temperatures: 430°C in the day and −180°C at night.',
       'Mercury has almost no atmosphere, so the sky is always black even in daytime.',
       'Mercury is covered in craters from asteroid impacts billions of years ago.',

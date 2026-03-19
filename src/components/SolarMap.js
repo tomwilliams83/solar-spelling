@@ -119,23 +119,39 @@ export default function SolarMap({ playerName, avatar, completedLevels, unlocked
         }}
         className="hide-scrollbar"
       >
-        {/* Sun (decorative, left side) */}
+        {/* Sun — to scale (radius ~1363px at Jupiter=140px scale), shown partially */}
         <div style={{
           flexShrink: 0,
-          width: '80px',
-          height: '80px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle at 40% 40%, #fff5b4, #ffcc00 40%, #ff8800)',
-          boxShadow: '0 0 40px rgba(255,200,0,0.8), 0 0 80px rgba(255,150,0,0.4)',
-          marginRight: '40px',
-          animation: 'pulse-glow 3s ease-in-out infinite',
-        }} />
+          position: 'relative',
+          width: '220px',
+          height: '220px',
+          marginLeft: '-110px',
+          marginRight: '60px',
+        }}>
+          {/* Sun disc */}
+          <div style={{
+            width: '220px',
+            height: '220px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle at 40% 35%, #fffde0, #ffe44d 30%, #ffaa00 65%, #ff6600)',
+            boxShadow: '0 0 60px rgba(255,200,0,0.9), 0 0 120px rgba(255,150,0,0.5), 0 0 200px rgba(255,100,0,0.3)',
+            animation: 'pulse-glow 3s ease-in-out infinite',
+          }} />
+          {/* Corona glow */}
+          <div style={{
+            position: 'absolute',
+            inset: '-30px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, transparent 45%, rgba(255,180,0,0.15) 60%, transparent 75%)',
+            pointerEvents: 'none',
+          }} />
+        </div>
 
         {/* Orbital path line */}
         <div style={{
           position: 'absolute',
           top: '50%',
-          left: '80px',
+          left: '160px',
           right: '40px',
           height: '2px',
           background: 'linear-gradient(to right, rgba(100,150,255,0.3), rgba(100,150,255,0.1))',
