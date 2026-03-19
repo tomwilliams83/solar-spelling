@@ -79,19 +79,19 @@ function ListenSpell({ question, onAnswer }) {
   const [typed, setTyped] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [correct, setCorrect] = useState(null);
+  const [praise, setPraise] = useState('');
   const inputRef = useRef();
 
   useEffect(() => {
     setTyped('');
     setSubmitted(false);
     setCorrect(null);
+    setPraise('');
     setTimeout(() => {
       speakWord(question.word);
       inputRef.current?.focus();
     }, 300);
   }, [question]);
-
-  const [praise, setPraise] = useState('');
 
   function handleSubmit() {
     if (!typed.trim()) return;
@@ -227,7 +227,6 @@ function ListenSpell({ question, onAnswer }) {
 function ChooseSpelling({ question, onAnswer }) {
   const [selected, setSelected] = useState(null);
   const [correct, setCorrect] = useState(null);
-
   const [praise, setPraise] = useState('');
 
   useEffect(() => {
@@ -353,9 +352,8 @@ function FillBlank({ question, onAnswer }) {
   const [typed, setTyped] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [correct, setCorrect] = useState(null);
-  const inputRef = useRef();
-
   const [praise, setPraise] = useState('');
+  const inputRef = useRef();
 
   useEffect(() => {
     setTyped('');
