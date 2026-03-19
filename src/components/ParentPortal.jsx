@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
 import { PLANETS } from '../data/levels.js';
 
-const PORTAL_PIN = '1234'; // Simple PIN — parents can change this in the code
-
 export default function ParentPortal({ completedLevels, focusWords, onSaveFocus, onClose }) {
-  const [pin, setPin] = useState('');
-  const [unlocked, setUnlocked] = useState(false);
-  const [pinError, setPinError] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState(PLANETS[0].id);
   const [localFocus, setLocalFocus] = useState(focusWords || {});
   const [saved, setSaved] = useState(false);
-
-  function tryPin() {
-    if (pin === PORTAL_PIN) {
-      setUnlocked(true);
-    } else {
-      setPinError(true);
-      setTimeout(() => setPinError(false), 800);
-    }
-  }
 
   function toggleWord(planetId, word) {
     setLocalFocus(prev => {
@@ -44,44 +30,6 @@ export default function ParentPortal({ completedLevels, focusWords, onSaveFocus,
 
   const planet = PLANETS.find(p => p.id === selectedPlanet);
   const focusForPlanet = localFocus[selectedPlanet] || [];
-
-  if (!unlocked) {
-    return (
-      <div style={overlay}>
-        <div style={card}>
-          <button onClick={onClose} style={closeBtn}>✕</button>
-          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-            <div style={{ fontSize: '40px', marginBottom: '8px' }}>🔒</div>
-            <h2 style={heading}>Parent Portal</h2>
-            <p style={sub}>Enter your PIN to access settings</p>
-          </div>
-
-          <input
-            type="password"
-            value={pin}
-            onChange={e => setPin(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && tryPin()}
-            placeholder="Enter PIN"
-            maxLength={6}
-            style={{
-              ...inputStyle,
-              border: `2px solid ${pinError ? 'var(--red-wrong)' : 'rgba(100,150,255,0.3)'}`,
-              animation: pinError ? 'shake 0.4s ease' : 'none',
-            }}
-          />
-          {pinError && (
-            <p style={{ color: 'var(--red-wrong)', fontSize: '13px', textAlign: 'center' }}>
-              Incorrect PIN. Default PIN is 1234.
-            </p>
-          )}
-          <button onClick={tryPin} style={primaryBtn}>Unlock →</button>
-          <p style={{ fontSize: '11px', opacity: 0.4, textAlign: 'center', marginTop: '8px' }}>
-            Default PIN: 1234 — change it in the code
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={overlay}>
@@ -227,12 +175,6 @@ const heading = {
   color: 'var(--star-yellow)', marginBottom: '4px',
 };
 const sub = { fontSize: '13px', opacity: 0.6 };
-const inputStyle = {
-  width: '100%', padding: '14px 18px', borderRadius: '14px',
-  background: 'rgba(255,255,255,0.08)', color: 'white',
-  fontSize: '20px', fontWeight: 700, fontFamily: 'var(--font-body)',
-  textAlign: 'center', letterSpacing: '4px', outline: 'none', marginBottom: '12px',
-};
 const primaryBtn = {
   width: '100%', padding: '15px', borderRadius: '20px', marginTop: '8px',
   background: 'linear-gradient(135deg, #f59e0b, #fcd34d)',
