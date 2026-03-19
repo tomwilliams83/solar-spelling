@@ -91,14 +91,16 @@ function ListenSpell({ question, onAnswer }) {
     }, 300);
   }, [question]);
 
+  const [praise, setPraise] = useState('');
+
   function handleSubmit() {
     if (!typed.trim()) return;
     const isCorrect = typed.trim().toLowerCase() === question.word.toLowerCase();
     setCorrect(isCorrect);
     setSubmitted(true);
-    if (isCorrect) speak(pickPraise(), 1.0);
-    else speak(`Never mind! The correct spelling is: ${question.word}`, 0.75);
-    setTimeout(() => onAnswer(isCorrect), 1600);
+    if (isCorrect) { speakWord(question.word); setPraise(pickPraise()); }
+    else speakWord(question.word);
+    setTimeout(() => onAnswer(isCorrect), 1800);
   }
 
   return (
@@ -188,7 +190,16 @@ function ListenSpell({ question, onAnswer }) {
       )}
 
       {submitted && correct && (
-        <div className="animate-bounce-in" style={{ fontSize: '40px' }}>🎉</div>
+        <div className="animate-bounce-in" style={{
+          textAlign: 'center',
+          background: 'linear-gradient(135deg, rgba(74,222,128,0.2), rgba(34,211,238,0.1))',
+          border: '2px solid var(--green-correct)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '16px 28px',
+        }}>
+          <div style={{ fontSize: '36px', marginBottom: '4px' }}>🎉</div>
+          <p style={{ fontSize: '24px', fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--green-correct)' }}>{praise}</p>
+        </div>
       )}
 
       {!submitted && (
@@ -217,10 +228,13 @@ function ChooseSpelling({ question, onAnswer }) {
   const [selected, setSelected] = useState(null);
   const [correct, setCorrect] = useState(null);
 
+  const [praise, setPraise] = useState('');
+
   useEffect(() => {
     setSelected(null);
     setCorrect(null);
-    setTimeout(() => speak('Which one is spelled correctly? Listen carefully!', 0.75), 200);
+    setPraise('');
+    setTimeout(() => speakWord(question.word), 400);
   }, [question]);
 
   function handleChoice(option) {
@@ -228,9 +242,9 @@ function ChooseSpelling({ question, onAnswer }) {
     const isCorrect = option === question.word;
     setSelected(option);
     setCorrect(isCorrect);
-    if (isCorrect) speak(pickPraise(), 1.0);
-    else speak(`Nearly! The correct spelling is: ${question.word}`, 0.75);
-    setTimeout(() => onAnswer(isCorrect), 1600);
+    if (isCorrect) { setPraise(pickPraise()); speakWord(question.word); }
+    else speakWord(question.word);
+    setTimeout(() => onAnswer(isCorrect), 1800);
   }
 
   return (
@@ -304,6 +318,33 @@ function ChooseSpelling({ question, onAnswer }) {
           );
         })}
       </div>
+
+      {selected && correct && (
+        <div className="animate-bounce-in" style={{
+          textAlign: 'center',
+          background: 'linear-gradient(135deg, rgba(74,222,128,0.2), rgba(34,211,238,0.1))',
+          border: '2px solid var(--green-correct)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '14px 28px',
+          marginTop: '4px',
+        }}>
+          <div style={{ fontSize: '32px', marginBottom: '4px' }}>🌟</div>
+          <p style={{ fontSize: '22px', fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--green-correct)' }}>{praise}</p>
+        </div>
+      )}
+
+      {selected && !correct && (
+        <div className="animate-bounce-in" style={{
+          textAlign: 'center',
+          background: 'rgba(248,113,113,0.1)',
+          border: '1px solid var(--red-wrong)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '14px 28px',
+        }}>
+          <p style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Nearly! The correct spelling is:</p>
+          <p style={{ fontSize: '24px', fontWeight: 800, color: 'var(--green-correct)', letterSpacing: '3px' }}>{question.word}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -314,12 +355,17 @@ function FillBlank({ question, onAnswer }) {
   const [correct, setCorrect] = useState(null);
   const inputRef = useRef();
 
+  const [praise, setPraise] = useState('');
+
   useEffect(() => {
     setTyped('');
     setSubmitted(false);
     setCorrect(null);
-    const text = question.sentence.replace('____', '____');
-    setTimeout(() => { speak(text.replace('____', 'blank'), 0.85); inputRef.current?.focus(); }, 300);
+    setPraise('');
+    setTimeout(() => {
+      speak(question.sentence.replace('____', 'blank'), 0.7);
+      inputRef.current?.focus();
+    }, 300);
   }, [question]);
 
   function handleSubmit() {
@@ -327,10 +373,9 @@ function FillBlank({ question, onAnswer }) {
     const isCorrect = typed.trim().toLowerCase() === question.answer.toLowerCase();
     setCorrect(isCorrect);
     setSubmitted(true);
-    const filled = question.sentence.replace('____', question.answer);
-    if (isCorrect) speak(pickPraise() + '... ' + filled, 1.0);
-    else speak(`Good try! The missing word is: ${question.answer}`, 0.75);
-    setTimeout(() => onAnswer(isCorrect), 1600);
+    if (isCorrect) { setPraise(pickPraise()); speakWord(question.answer); }
+    else speakWord(question.answer);
+    setTimeout(() => onAnswer(isCorrect), 1800);
   }
 
   const parts = question.sentence.split('____');
@@ -421,12 +466,29 @@ function FillBlank({ question, onAnswer }) {
         }}
       />
 
+      {submitted && correct && (
+        <div className="animate-bounce-in" style={{
+          textAlign: 'center',
+          background: 'linear-gradient(135deg, rgba(74,222,128,0.2), rgba(255,232,124,0.1))',
+          border: '2px solid var(--green-correct)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '14px 28px',
+        }}>
+          <div style={{ fontSize: '32px', marginBottom: '4px' }}>⭐</div>
+          <p style={{ fontSize: '22px', fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--green-correct)' }}>{praise}</p>
+        </div>
+      )}
+
       {submitted && !correct && (
-        <div className="animate-bounce-in" style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: '13px', opacity: 0.7 }}>The missing word was:</p>
-          <p style={{ fontSize: '22px', fontWeight: 800, color: 'var(--green-correct)', letterSpacing: '2px' }}>
-            {question.answer}
-          </p>
+        <div className="animate-bounce-in" style={{
+          textAlign: 'center',
+          background: 'rgba(248,113,113,0.1)',
+          border: '1px solid var(--red-wrong)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '14px 28px',
+        }}>
+          <p style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Good try! The missing word was:</p>
+          <p style={{ fontSize: '24px', fontWeight: 800, color: 'var(--green-correct)', letterSpacing: '2px' }}>{question.answer}</p>
         </div>
       )}
 
