@@ -41,54 +41,6 @@ const PRAISE = [
 ];
 function pickPraise() { return PRAISE[Math.floor(Math.random() * PRAISE.length)]; }
 
-// ─── Speech ───────────────────────────────────────────────────────────────────
-
-function speakWord(word) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-
-  function doSpeak() {
-    const voices = window.speechSynthesis.getVoices();
-    // Log for debugging
-    console.log('Voices:', voices.map(v => `${v.name} [${v.lang}]`).join(', '));
-
-    const voice =
-      voices.find(v => v.name.includes('Hazel')) ||
-      voices.find(v => v.name.includes('Zira')) ||
-      voices.find(v => v.name.includes('Susan')) ||
-      voices.find(v => v.name.includes('Serena')) ||
-      voices.find(v => v.name.includes('Karen')) ||
-      voices.find(v => v.lang === 'en-GB') ||
-      voices.find(v => v.lang.startsWith('en')) ||
-      null;
-
-    console.log('Chosen voice:', voice ? voice.name : 'browser default');
-
-    function u(text) {
-      const ut = new SpeechSynthesisUtterance(text);
-      ut.rate = 0.7;
-      ut.pitch = 1.6;  // High pitch sounds more child-friendly
-      ut.volume = 1.0;
-      ut.lang = 'en-GB';
-      if (voice) ut.voice = voice;
-      return ut;
-    }
-    // Say word, pause, say again
-    window.speechSynthesis.speak(u(word));
-    window.speechSynthesis.speak(u('...'));
-    window.speechSynthesis.speak(u(word));
-  }
-
-  if (window.speechSynthesis.getVoices().length > 0) {
-    doSpeak();
-  } else {
-    window.speechSynthesis.onvoiceschanged = () => {
-      doSpeak();
-      window.speechSynthesis.onvoiceschanged = null;
-    };
-  }
-}
-
 // ─── Question types ───────────────────────────────────────────────────────────
 
 // 1. Choose Spelling
@@ -97,7 +49,6 @@ function ChooseSpelling({ word, options, onDone }) {
   const [praise, setPraise] = useState('');
 
   useEffect(() => {
-    setTimeout(() => speakWord(word), 300);
   }, [word]);
 
   function choose(option) {
@@ -105,7 +56,6 @@ function ChooseSpelling({ word, options, onDone }) {
     const correct = option === word;
     setChosen(option);
     if (correct) setPraise(pickPraise());
-    speakWord(word);
     setTimeout(() => onDone(correct), 2000);
   }
 
@@ -115,8 +65,6 @@ function ChooseSpelling({ word, options, onDone }) {
         <p style={styles.badgeLabel}>🔤 Choose the Spelling</p>
         <p style={styles.badgeSub}>Which one is spelled correctly?</p>
       </div>
-
-      <button onClick={() => speakWord(word)} style={styles.speakBtn}>🔊</button>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', width: '100%', maxWidth: '360px' }}>
         {options.map((opt, i) => {
@@ -154,7 +102,6 @@ function LookCoverWrite({ word, onDone }) {
   const timerRef = useRef();
 
   useEffect(() => {
-    speakWord(word);
     timerRef.current = setInterval(() => {
       setCountdown(c => {
         if (c <= 1) {
@@ -175,7 +122,6 @@ function LookCoverWrite({ word, onDone }) {
     setResult(correct ? 'correct' : 'wrong');
     setPhase('done');
     if (correct) setPraise(pickPraise());
-    speakWord(word);
     setTimeout(() => onDone(correct), 2500);
   }
 
