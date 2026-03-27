@@ -34,9 +34,13 @@ export default function SolarMap({ playerName, avatar, completedLevels, unlocked
   // Auto-scroll to first uncompleted planet
   useEffect(() => {
     if (scrollRef.current) {
-      const firstUnlocked = Math.max(0, unlockedIndex);
-      const target = (firstUnlocked / (PLANETS.length - 1)) * (scrollRef.current.scrollWidth - scrollRef.current.clientWidth);
-      scrollRef.current.scrollLeft = Math.max(0, target - 40);
+      if (unlockedIndex === 0) {
+        // Start of game — scroll to left so Mercury is clearly visible
+        scrollRef.current.scrollLeft = 0;
+      } else {
+        const target = (unlockedIndex / (PLANETS.length - 1)) * (scrollRef.current.scrollWidth - scrollRef.current.clientWidth);
+        scrollRef.current.scrollLeft = Math.max(0, target - 60);
+      }
     }
   }, [unlockedIndex]);
 
@@ -127,14 +131,14 @@ export default function SolarMap({ playerName, avatar, completedLevels, unlocked
         }}
         className="hide-scrollbar"
       >
-        {/* Sun — shown partially off left edge to convey massive scale */}
+        {/* Sun — partially off left edge, Mercury given clear space */}
         <div style={{
           flexShrink: 0,
           position: 'relative',
-          width: '160px',  /* visible portion only */
+          width: '100px',
           height: '500px',
-          marginLeft: '-340px', /* push most of it off screen */
-          marginRight: '80px',
+          marginLeft: '-400px',
+          marginRight: '120px',
         }}>
           {/* Sun disc — 500px diameter, mostly off screen */}
           <div style={{
@@ -192,13 +196,14 @@ export default function SolarMap({ playerName, avatar, completedLevels, unlocked
 
           return (
             <React.Fragment key={planet.id}>
-              {/* Spacer between planets, roughly proportional */}
-              {i > 0 && (
-                <div style={{
-                  flexShrink: 0,
-                  width: `${Math.min(80, Math.max(30, Math.log(planet.distanceFromSun * 10) * 20))}px`,
-                }} />
-              )}
+              {/* Log-scale spacing — feels like real distances */}
+              {i > 0 && (() => {
+                const prevDist = PLANETS[i - 1].distanceFromSun;
+                const thisDist = planet.distanceFromSun;
+                // Log of ratio gives proportional feel without infinite spread
+                const gap = Math.max(60, Math.round(Math.log(thisDist / prevDist + 1) * 160));
+                return <div style={{ flexShrink: 0, width: `${gap}px` }} />;
+              })()}
 
               <div style={{
                 flexShrink: 0,

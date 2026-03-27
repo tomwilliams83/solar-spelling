@@ -14,7 +14,6 @@ function shuffle(arr) {
 }
 
 function buildQuestions(planet, focusWords) {
-  // Use focusWords if provided (from parent portal), else use all planet words
   const wordPool = focusWords && focusWords.length > 0
     ? planet.words.filter(w => focusWords.includes(w.word))
     : planet.words;
@@ -23,17 +22,12 @@ function buildQuestions(planet, focusWords) {
   const questions = [];
 
   wordsArr.forEach((wordObj, i) => {
-    const type = i % 3 === 0
-      ? QUESTION_TYPES.LISTEN_SPELL
-      : i % 3 === 1
-      ? QUESTION_TYPES.CHOOSE_SPELLING
-      : QUESTION_TYPES.LOOK_COVER;
-
-    if (type === QUESTION_TYPES.CHOOSE_SPELLING) {
-      const options = shuffle([wordObj.word, ...wordObj.distractors.slice(0, 3)]);
-      questions.push({ type, word: wordObj.word, options });
+    // Alternate between look/cover and choose spelling
+    if (i % 2 === 0) {
+      questions.push({ type: QUESTION_TYPES.LOOK_COVER, word: wordObj.word });
     } else {
-      questions.push({ type, word: wordObj.word });
+      const options = shuffle([wordObj.word, ...wordObj.distractors.slice(0, 3)]);
+      questions.push({ type: QUESTION_TYPES.CHOOSE_SPELLING, word: wordObj.word, options });
     }
   });
 
@@ -97,59 +91,7 @@ function speakWord(word) {
 
 // ─── Question types ───────────────────────────────────────────────────────────
 
-// 1. Listen & Spell
-function ListenSpell({ word, onDone }) {
-  const [typed, setTyped] = useState('');
-  const [result, setResult] = useState(null);
-  const [praise, setPraise] = useState('');
-  const inputRef = useRef();
-
-  useEffect(() => {
-    setTimeout(() => speakWord(word), 300);
-    setTimeout(() => inputRef.current?.focus(), 400);
-  }, [word]);
-
-  function submit() {
-    if (result || !typed.trim()) return;
-    const correct = typed.trim().toLowerCase() === word.toLowerCase();
-    setResult(correct ? 'correct' : 'wrong');
-    if (correct) setPraise(pickPraise());
-    speakWord(word);
-    setTimeout(() => onDone(correct), 2000);
-  }
-
-  return (
-    <div style={styles.qWrap}>
-      <div style={styles.badge('#22d3ee')}>
-        <p style={styles.badgeLabel}>🎧 Listen & Spell</p>
-        <p style={styles.badgeSub}>Listen to the word, then type it below</p>
-      </div>
-
-      <button onClick={() => speakWord(word)} style={styles.speakBtn}>🔊</button>
-
-      <input
-        ref={inputRef}
-        value={typed}
-        onChange={e => !result && setTyped(e.target.value)}
-        onKeyDown={e => e.key === 'Enter' && submit()}
-        disabled={!!result}
-        placeholder="Type the word..."
-        autoCapitalize="off" autoCorrect="off" autoComplete="off" spellCheck="false"
-        style={styles.input(result)}
-      />
-
-      {!result && (
-        <button onClick={submit} disabled={!typed.trim()} style={styles.checkBtn(!!typed.trim())}>
-          Check ✓
-        </button>
-      )}
-
-      {result && <Feedback result={result} praise={praise} word={word} />}
-    </div>
-  );
-}
-
-// 2. Choose Spelling
+// 1. Choose Spelling
 function ChooseSpelling({ word, options, onDone }) {
   const [chosen, setChosen] = useState(null);
   const [praise, setPraise] = useState('');
@@ -200,7 +142,7 @@ function ChooseSpelling({ word, options, onDone }) {
   );
 }
 
-// 3. Look, Cover, Write, Check
+// 2. Look, Cover, Write, Check
 function LookCoverWrite({ word, onDone }) {
   const LOOK_SECS = 5;
   const [phase, setPhase] = useState('look'); // look | write | done
@@ -444,9 +386,6 @@ export default function GameScreen({ planet, playerName, avatar, onComplete, onB
           </div>
         ) : (
           <>
-            {q.type === QUESTION_TYPES.LISTEN_SPELL && (
-              <ListenSpell key={`ls-${qIndex}`} word={q.word} onDone={handleAnswer} />
-            )}
             {q.type === QUESTION_TYPES.CHOOSE_SPELLING && (
               <ChooseSpelling key={`cs-${qIndex}`} word={q.word} options={q.options} onDone={handleAnswer} />
             )}
